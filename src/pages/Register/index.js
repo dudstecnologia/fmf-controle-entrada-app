@@ -1,19 +1,75 @@
-import React from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
-import { Text } from "@react-native-material/core";
-import { Button } from "@react-native-material/core";
+import React, { useState } from 'react';
+import { SafeAreaView, ScrollView, Text, Button, TextInput, ActivityIndicator } from 'react-native';
 import styles from './styles'
+import axios from 'axios';
 
 export default function Register() {
-    return(
-        <SafeAreaView style={ styles.container }>
-            <ScrollView>
-                <Text variant="body1">
-                    Register Screen
-                </Text>
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [document, setDocument] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
-                <Button title="Click Me" onPress={() => alert("Hello")}/>
-            </ScrollView>
-        </SafeAreaView>
-    )
+  function request() {
+    setLoading(true)
+    axios.post('https://eopdahzuiwn9xbu.m.pipedream.net/', {
+      name, email, document, password
+    })
+    .then((response) => {
+      console.log('Passou em sucesso')
+    })
+    .catch((error) => {
+      console.log('Passou em erro')
+    })
+    .then(() => {
+      setLoading(false)
+      console.log('Finalizou independente de sucesso ou erro')
+    })
+  }
+
+  return(
+    <SafeAreaView style={ styles.container }>
+      <ScrollView>
+        <ActivityIndicator animating={loading} size="large" />
+        <Text style={styles.textBody}>
+            Email: { email }
+        </Text>
+
+        <TextInput
+            style={styles.input}
+            onChangeText={setName}
+            value={name}
+            placeholder='Nome'
+            placeholderTextColor="#BDBDBD" 
+        />
+
+        <TextInput
+            style={styles.input}
+            onChangeText={setEmail}
+            value={email}
+            placeholder='Email'
+            placeholderTextColor="#BDBDBD" 
+        />
+
+        <TextInput
+            style={styles.input}
+            onChangeText={setDocument}
+            value={document}
+            placeholder='Documento'
+            placeholderTextColor="#BDBDBD" 
+        />
+
+        <TextInput
+            style={styles.input}
+            secureTextEntry={true}
+            onChangeText={setPassword}
+            value={password}
+            placeholder='Senha'
+            placeholderTextColor="#BDBDBD" 
+        />
+
+        <Button title="Click Me" onPress={() => request()}/>
+      </ScrollView>
+    </SafeAreaView>
+  )
 }
