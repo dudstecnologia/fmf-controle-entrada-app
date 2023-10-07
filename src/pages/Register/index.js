@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, Text, Button, TextInput, ActivityIndicator } from 'react-native';
-import styles from './styles'
+import { SafeAreaView, ScrollView, Text, TextInput, ActivityIndicator, TouchableOpacity } from 'react-native';
+import styles from './styles';
 import axios from 'axios';
 
 export default function Register() {
@@ -67,8 +67,9 @@ export default function Register() {
             placeholder='Senha'
             placeholderTextColor="#BDBDBD" 
         />
-
-        <Button title="Click Me" onPress={() => request()}/>
+        <TouchableOpacity style={styles.buttomDefault} onPress={ () => alert("OK")}>
+          <Text style={styles.buttomText}>Registrar</Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   )
