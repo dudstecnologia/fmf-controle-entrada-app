@@ -44,6 +44,12 @@ export default function Login({ navigation }) {
         <TouchableOpacity style={styles.buttomDefault} onPress={ () => alert("OK")}>
           <Text style={styles.buttomText}>Entrar</Text>
         </TouchableOpacity>
+
+        <Text style={styles.textOr}>ou</Text>
+
+        <Text style={styles.textCreateRegister} onPress={()=> navigation.navigate('register')}>
+            Faça seu registro
+        </Text>
       </ScrollView>
     </SafeAreaView>
   );

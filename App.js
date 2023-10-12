@@ -12,7 +12,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="login">
         <Stack.Screen name="login" component={ Login } options={{ headerShown: false }} />
-        <Stack.Screen name="register" component={ Register } options={{ headerShown: false }} />
+        <Stack.Screen name="register" component={ Register } options={{ title: 'Registro' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -12,14 +12,24 @@ export default function Register() {
 
   function request() {
     setLoading(true)
-    axios.post('https://eopdahzuiwn9xbu.m.pipedream.net/', {
-      name, email, document, password
+    axios.post('http://172.16.5.70:3000/users/register', {
+      nome: "Edu",
+      email: "carlos.dev@outlook.com",
+      senha: "12345",
+      tipo: "1",
+      adicional1: "",
+      adicional2: "",
+      adicional3: "",
+      adicional4: "",
+      adicional5: "",
+      biometria:"112233"
     })
     .then((response) => {
       console.log('Passou em sucesso')
     })
     .catch((error) => {
       console.log('Passou em erro')
+      console.log(error.response)
     })
     .then(() => {
       setLoading(false)
@@ -30,11 +40,6 @@ export default function Register() {
   return(
     <SafeAreaView style={ styles.container }>
       <ScrollView>
-        <ActivityIndicator animating={loading} size="large" />
-        <Text style={styles.textBody}>
-            Email: { email }
-        </Text>
-
         <TextInput
             style={styles.input}
             onChangeText={setName}
@@ -67,9 +72,11 @@ export default function Register() {
             placeholder='Senha'
             placeholderTextColor="#BDBDBD" 
         />
-        <TouchableOpacity style={styles.buttomDefault} onPress={ () => alert("OK")}>
+        <TouchableOpacity style={styles.buttomDefault} onPress={ () => request()}>
           <Text style={styles.buttomText}>Registrar</Text>
         </TouchableOpacity>
+
+        <ActivityIndicator animating={loading} size="large" />
       </ScrollView>
     </SafeAreaView>
   )
