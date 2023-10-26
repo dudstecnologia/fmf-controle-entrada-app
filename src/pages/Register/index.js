@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { SafeAreaView, ScrollView, Text, TextInput, ActivityIndicator, TouchableOpacity } from 'react-native';
 import styles from './styles';
-import axios from 'axios';
+import api from '../../services/api';
 
-export default function Register() {
+export default function Register({ navigation }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [document, setDocument] = useState('');
@@ -12,23 +12,24 @@ export default function Register() {
 
   function request() {
     setLoading(true)
-    axios.post('http://172.16.5.70:3000/users/register', {
-      nome: "Edu",
-      email: "carlos.dev@outlook.com",
-      senha: "12345",
-      tipo: "1",
+    api.post('/users/register', {
+      nome: name,
+      email: email,
+      senha: password,
+      tipo: 0,
       adicional1: "",
       adicional2: "",
       adicional3: "",
       adicional4: "",
       adicional5: "",
-      biometria:"112233"
+      biometria: 0
     })
     .then((response) => {
-      console.log('Passou em sucesso')
+      alert('Registrado com sucesso')
+      navigation.goBack()
     })
     .catch((error) => {
-      console.log('Passou em erro')
+      alert('Ocorreu um erro ao registrar')
       console.log(error.response)
     })
     .then(() => {
