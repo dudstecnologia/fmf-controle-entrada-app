@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Login from './src/pages/Login';
 import Register from './src/pages/Register';
+import Home from './src/pages/Home';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="login">
         <Stack.Screen name="login" component={ Login } options={{ headerShown: false }} />
         <Stack.Screen name="register" component={ Register } options={{ title: 'Registro' }} />
+        <Stack.Screen name="home" component={ Home } options={{ title: 'Tela Inicial' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

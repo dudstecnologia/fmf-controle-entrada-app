@@ -11,18 +11,36 @@ import {
 } from 'react-native';
 import styles from './styles';
 import api from '../../services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const storeUserData = async (type, token) => {
+    try {
+      await AsyncStorage.setItem('type', type)
+      await AsyncStorage.setItem('token', token)
+      console.log('Dados salvos com sucesso')
+
+      navigation.replace('home')
+    } catch (error) {
+      console.log('Erro ao salvar os dados')
+      console.log(error)
+    }
+  }
+
   function login() {
     setLoading(true)
     api.post('/login', { email: email, senha: password })
-    .then((response) => {
-      alert('Logado com sucesso')
-      console.log(response.data)
+    .then(({ data }) => {
+      console.log(data)
+      if (data.valid) {
+        storeUserData(data.tipo, data.token)
+      } else {
+        alert('Ocorreu um erro ao logar')
+      }
     })
     .catch((error) => {
       alert('Ocorreu um erro ao logar')
