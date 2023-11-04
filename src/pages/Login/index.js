@@ -10,11 +10,28 @@ import {
   View
 } from 'react-native';
 import styles from './styles';
+import api from '../../services/api';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
+  function login() {
+    setLoading(true)
+    api.post('/login', { email: email, senha: password })
+    .then((response) => {
+      alert('Logado com sucesso')
+      console.log(response.data)
+    })
+    .catch((error) => {
+      alert('Ocorreu um erro ao logar')
+      console.log(error.response)
+    })
+    .then(() => {
+      setLoading(false)
+    })
+  }
 
   return(
     <SafeAreaView>
@@ -22,8 +39,6 @@ export default function Login({ navigation }) {
         <ImageBackground source={ require('../../assets/img/logologin.png') } resizeMode="cover" style={styles.logo}>
           <Text style={styles.textLogo}>Auto Security</Text>
         </ImageBackground>
-
-        <ActivityIndicator animating={loading} size="large" />
 
         <View style={styles.container}>
           <TextInput
@@ -43,7 +58,9 @@ export default function Login({ navigation }) {
             placeholderTextColor="#BDBDBD" 
           />
 
-          <TouchableOpacity style={[styles.buttomDefault, styles.buttonLogin]} onPress={ () => alert("OK")}>
+          <ActivityIndicator animating={loading} size="large" />
+
+          <TouchableOpacity style={[styles.buttomDefault, styles.buttonLogin]} onPress={ login }>
             <Text style={styles.buttomText}>Entrar</Text>
           </TouchableOpacity>
 
