@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
   ...general,
   camera: {
     width: (width - 20),
-    height: (width - 20)
+    height: (width - 20),
+    marginTop: 10
   }
 })
 
