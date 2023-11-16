@@ -8,6 +8,7 @@ export default function HomeAdmin({ navigation }) {
   const device = useCameraDevice('back');
 
   const [showCamera, setShowCamera] = useState(false);
+  const [qr, setQr] = useState(null);
 
   useEffect(() => {
     async function getPermission() {
