@@ -16,7 +16,7 @@ export default function HomeBasic({ navigation }) {
     let shareImageBase64 = {
       title: 'Auto Security',
       url: `data:image/png;base64,${dataURL}`,
-      subject: 'Share Link',
+      subject: 'Auto Security',
     }
 
     Share.open(shareImageBase64).catch(error => console.log(error));
@@ -30,6 +30,7 @@ export default function HomeBasic({ navigation }) {
       </TouchableOpacity>
       <QRCode
         value="37759871-6e7b-416e-8d6b-72b9c03f5b23"
+        quietZone={5}
         getRef={(c) => (svg = c)}
       />
     </View>
