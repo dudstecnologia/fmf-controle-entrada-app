@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -50,6 +50,24 @@ export default function Login({ navigation }) {
       setLoading(false)
     })
   }
+
+  const validateUserData = async () => {
+    try {
+      const typeUser = await AsyncStorage.getItem('type');
+      const tokenUser = await AsyncStorage.getItem('token');
+
+      if (typeUser && tokenUser) {
+        navigation.replace('home');
+      }
+    } catch (e) {
+      console.log('Erro ao ler as preferencias');
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    validateUserData();
+  }, [])
 
   return(
     <SafeAreaView>
